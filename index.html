@@ -27,29 +27,38 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     <link rel='stylesheet' href='css/common.css'>
 
     <title>Barebones AR</title>
+    <style>
+        /*@import url(Widgets/widgets.css);*/
+        html, body, #cesiumContainer {
+            width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+        }
+    </style>
   </head>
   <body>
-    <div id="overlay">
-      <header>
-        <details open>
-          <summary>Barebones WebXR DOM Overlay</summary>
-          <p>
-            This sample demonstrates extremely simple use of an "immersive-ar"
-            session with no library dependencies, with an optional DOM overlay.
-            It doesn't render anything exciting, just draws a rectangle with a
-            slowly changing color to prove it's working.
-            <a class="back" href="./index.html">Back</a>
-          </p>
-          <div id="session-info"></div>
-          <div id="warning-zone"></div>
-          <button id="xr-button" class="barebones-button" disabled>XR not found</button>
-        </details>
-      </header>
+    <div id="cesiumContainer">
+        <header>
+            <details open>
+              <summary>Barebones WebXR DOM Overlay</summary>
+              <p>
+                This sample demonstrates extremely simple use of an "immersive-ar"
+                session with no library dependencies, with an optional DOM overlay.
+                It doesn't render anything exciting, just draws a rectangle with a
+                slowly changing color to prove it's working.
+                <a class="back" href="./index.html">Back</a>
+              </p>
+              <div id="session-info"></div>
+              <div id="warning-zone"></div>
+              <button id="xr-button" class="barebones-button" disabled>XR not found</button>
+            </details>
+          </header>
     </div>
+    <script type="text/javascript" src="ThirdParty/webxr-polyfill.js"></script>
+    <script type="text/javascript" src="BOSGeo/BOSGeo.js"></script>
     <main style='text-align: center;'>
       <p>Click 'Enter AR' to see content</p>
     </main>
     <script type="module">
+    window.CESIUM_BASE_URL = './';
       // XR globals.
       let xrButton = document.getElementById('xr-button');
       let xrSession = null;
@@ -86,10 +95,43 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       function onButtonClicked() {
         if (!xrSession) {
             // Ask for an optional DOM Overlay, see https://immersive-web.github.io/dom-overlays/
-            navigator.xr.requestSession('immersive-ar', {
-                optionalFeatures: ['dom-overlay'],
-                domOverlay: {root: document.getElementById('overlay')}
-            }).then(onSessionStarted, onRequestSessionError);
+            let xrRefSpace = null;
+            var container = document.getElementById('cesiumContainer');
+            let canvas = document.createElement('canvas');
+            let gl = canvas.getContext('webgl', {
+              xrCompatible: true
+            });
+
+            var element = document.createElement("div");
+            element.className = "cesium-widget";
+            container.appendChild(element);
+            element.appendChild(canvas);
+
+            navigator.xr.requestSession('immersive-ar')
+            .then((xrSession) => {
+                xrSession.isImmersive = true;
+                xrSession.updateRenderState({ baseLayer: new XRWebGLLayer(xrSession, gl) });
+                xrSession.requestReferenceSpace('local').then((refSpace) => {
+                    xrRefSpace = refSpace;
+                    // session.requestAnimationFrame(onXRFrame);
+                    let bos = new BOSGeo.GeoMap(container,canvas, gl, element,{
+                        session : xrSession
+                    });
+                
+                });
+            })
+
+
+
+       
+            // let bos = new BOSGeo.GeoMap('cesiumContainer',{
+            //     session : session
+            // });
+            // bos.viewer.scene.globe.show = false;
+            // navigator.xr.requestSession('immersive-ar', {
+            //     optionalFeatures: ['dom-overlay'],
+            //     domOverlay: {root: document.getElementById('overlay')}
+            // }).then(onSessionStarted, onRequestSessionError);
         } else {
           xrSession.end();
         }
@@ -132,26 +174,26 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         gl = null;
       }
 
-      function onXRFrame(t, frame) {
-        let session = frame.session;
-        session.requestAnimationFrame(onXRFrame);
-        let pose = frame.getViewerPose(xrRefSpace);
+    //   function onXRFrame(t, frame) {
+    //     let session = frame.session;
+    //     session.requestAnimationFrame(onXRFrame);
+    //     let pose = frame.getViewerPose(xrRefSpace);
 
-        if (pose) {
-          gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer);
+    //     if (pose) {
+    //       gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer);
 
-          // Update the clear color so that we can observe the color in the
-          // headset changing over time. Use a scissor rectangle to keep the AR
-          // scene visible.
-          const width = session.renderState.baseLayer.framebufferWidth;
-          const height = session.renderState.baseLayer.framebufferHeight;
-          gl.enable(gl.SCISSOR_TEST);
-          gl.scissor(width / 4, height / 4, width / 2, height / 2);
-          let time = Date.now();
-          gl.clearColor(Math.cos(time / 2000), Math.cos(time / 4000), Math.cos(time / 6000), 0.5);
-          gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        }
-      }
+    //       // Update the clear color so that we can observe the color in the
+    //       // headset changing over time. Use a scissor rectangle to keep the AR
+    //       // scene visible.
+    //       const width = session.renderState.baseLayer.framebufferWidth;
+    //       const height = session.renderState.baseLayer.framebufferHeight;
+    //       gl.enable(gl.SCISSOR_TEST);
+    //       gl.scissor(width / 4, height / 4, width / 2, height / 2);
+    //       let time = Date.now();
+    //       gl.clearColor(Math.cos(time / 2000), Math.cos(time / 4000), Math.cos(time / 6000), 0.5);
+    //       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    //     }
+    //   }
 
       initXR();
     </script>
