@@ -75,7 +75,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
       void main()
       {
-          color = vec4(1.0, 0.5, 0.0, 1.0);
+          color = vec4(1.0, 0.5, 0.0, 0.2);
       }
   </script>
     <script type="text/javascript" src="ThirdParty/webxr-polyfill.js"></script>
@@ -151,7 +151,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                       // if(pose){
                         gl.bindFramebuffer(gl.FRAMEBUFFER,  session.renderState.baseLayer.framebuffer);
                         gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-                      // gl.clearBufferfv(gl.COLOR, 0, [0.3, 0.3, 0.3, 1.0]);
+                      gl.clearBufferfv(gl.COLOR, 0, [0.3, 0.3, 0.3, 0.2]);
 
 
                       var program = createProgram(gl, getShaderSource('vs'), getShaderSource('fs'));
@@ -198,7 +198,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                       gl.bindVertexArray(null);
 
                       // -- Render
-                      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+                      gl.clearColor(0.0, 0.0, 0.0, 0.0);
                       gl.clear(gl.COLOR_BUFFER_BIT);
 
                       gl.bindVertexArray(vertexArray);
