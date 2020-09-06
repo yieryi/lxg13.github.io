@@ -113,28 +113,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 xrSession.updateRenderState({ baseLayer: new XRWebGLLayer(xrSession, gl) });
                 xrSession.requestReferenceSpace('local').then((refSpace) => {
                     xrRefSpace = refSpace;
-                    // session.requestAnimationFrame(onXRFrame);
-                    
-    //   function onXRFrame(t, frame) {
-    //     let session = frame.session;
-    //     session.requestAnimationFrame(onXRFrame);
-    //     let pose = frame.getViewerPose(xrRefSpace);
-
-    //     if (pose) {
-    //       gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer);
-
-    //       // Update the clear color so that we can observe the color in the
-    //       // headset changing over time. Use a scissor rectangle to keep the AR
-    //       // scene visible.
-    //       const width = session.renderState.baseLayer.framebufferWidth;
-    //       const height = session.renderState.baseLayer.framebufferHeight;
-    //       gl.enable(gl.SCISSOR_TEST);
-    //       gl.scissor(width / 4, height / 4, width / 2, height / 2);
-    //       let time = Date.now();
-    //       gl.clearColor(Math.cos(time / 2000), Math.cos(time / 4000), Math.cos(time / 6000), 0.5);
-    //       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    //     }
-    //   }
                     let bos = new BOSGeo.GeoMap(container,canvas, gl, element,{
                         session : xrSession
                     });
@@ -142,42 +120,31 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 });
             })
 
-
-
-       
-            // let bos = new BOSGeo.GeoMap('cesiumContainer',{
-            //     session : session
-            // });
-            // bos.viewer.scene.globe.show = false;
-            // navigator.xr.requestSession('immersive-ar', {
-            //     optionalFeatures: ['dom-overlay'],
-            //     domOverlay: {root: document.getElementById('overlay')}
-            // }).then(onSessionStarted, onRequestSessionError);
         } else {
           xrSession.end();
         }
       }
 
-      function onSessionStarted(session) {
-        xrSession = session;
-        xrButton.innerHTML = 'Exit AR';
+      // function onSessionStarted(session) {
+      //   xrSession = session;
+      //   xrButton.innerHTML = 'Exit AR';
 
-        // Show which type of DOM Overlay got enabled (if any)
-        if (session.domOverlayState) {
-          document.getElementById('session-info').innerHTML = 'DOM Overlay type: ' + session.domOverlayState.type;
-        }
+      //   // Show which type of DOM Overlay got enabled (if any)
+      //   if (session.domOverlayState) {
+      //     document.getElementById('session-info').innerHTML = 'DOM Overlay type: ' + session.domOverlayState.type;
+      //   }
 
-        session.addEventListener('end', onSessionEnded);
-        let canvas = document.createElement('canvas');
-        gl = canvas.getContext('webgl', {
-          xrCompatible: true
-        });
-        session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) });
-        session.requestReferenceSpace('local').then((refSpace) => {
-          xrRefSpace = refSpace;
-          session.requestAnimationFrame(onXRFrame);
-        });
-      }
+      //   session.addEventListener('end', onSessionEnded);
+      //   let canvas = document.createElement('canvas');
+      //   gl = canvas.getContext('webgl', {
+      //     xrCompatible: true
+      //   });
+      //   session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) });
+      //   session.requestReferenceSpace('local').then((refSpace) => {
+      //     xrRefSpace = refSpace;
+      //     session.requestAnimationFrame(onXRFrame);
+      //   });
+      // }
 
       function onRequestSessionError(ex) {
         alert("Failed to start immersive AR session.");

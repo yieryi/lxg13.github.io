@@ -38,7 +38,7 @@ function startRenderLoop(widget) {
     // }
     let gl = widget._gl;
     let session =  widget._session;
-    // gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer);
+    // gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
     // // Update the clear color so that we can observe the color in the
     // // headset changing over time. Use a scissor rectangle to keep the AR
