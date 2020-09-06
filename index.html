@@ -149,10 +149,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                       let session = frame.session;
                       let pose = frame.getViewerPose(xrRefSpace);
                       // if(pose){
-                        gl.bindFramebuffer(gl.FRAMEBUFFER,  session.renderState.baseLayer.framebuffer);
+     
                         gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-                      gl.clearBufferfv(gl.COLOR, 0, [0.3, 0.3, 0.3, 0.2]);
-
+                        gl.bindFramebuffer(gl.FRAMEBUFFER,  session.renderState.baseLayer.framebuffer);
+                        gl.clearBufferfv(gl.COLOR, 0, [0.3, 0.3, 0.3, 0.2]);
 
                       var program = createProgram(gl, getShaderSource('vs'), getShaderSource('fs'));
                       gl.useProgram(program);
@@ -197,6 +197,39 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
                       gl.bindVertexArray(null);
 
+                      
+
+                      // var color1Texture = gl.createTexture();
+                      //   gl.bindTexture(gl.TEXTURE_2D, color1Texture);
+                      //   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                      //   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                      //   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+                      //   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+
+                      //   gl.texImage2D(gl.TEXTURE_2D,
+                      //       0,
+                      //       gl.RGBA,
+                      //       gl.drawingBufferWidth,
+                      //       gl.drawingBufferHeight,
+                      //       0,
+                      //       gl.RGBA,
+                      //       gl.UNSIGNED_BYTE,
+                      //       null);
+
+                      //   gl.activeTexture(gl.TEXTURE0);
+
+                      //   var frameBuffer = gl.createFramebuffer();
+                      //   gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, frameBuffer);
+                      //   gl.framebufferTexture2D(gl.DRAW_FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, color1Texture, 0);
+
+                      //   gl.drawBuffers([
+                      //       gl.COLOR_ATTACHMENT0
+                      //   ]);
+
+                      //   gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, null);
+
+                        // gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, session.renderState.baseLayer.framebuffer);
+
                       // -- Render
                       gl.clearColor(0.0, 0.0, 0.0, 0.0);
                       gl.clear(gl.COLOR_BUFFER_BIT);
@@ -204,6 +237,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                       gl.bindVertexArray(vertexArray);
 
                       gl.drawElements(gl.TRIANGLE_STRIP, 7, gl.UNSIGNED_SHORT, 0);
+
+
+                        //render to AR
+                      // gl.bindFramebuffer(gl.FRAMEBUFFER,  session.renderState.baseLayer.framebuffer);
+                      // gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+                      // gl.clearBufferfv(gl.COLOR, 0, [0.3, 0.3, 0.3, 0.2]);
+                      // gl.bindFramebuffer(gl.FRAMEBUFFER,  null);
 
                       // -- Delete WebGL resources
                       gl.deleteBuffer(vertexPosBuffer);
