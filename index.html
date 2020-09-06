@@ -232,18 +232,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, FRAMEBUFFER_SIZE.x, FRAMEBUFFER_SIZE.y, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
                             gl.bindTexture(gl.TEXTURE_2D, null);
 
-                            var framebufferRender = gl.createFramebuffer();
-                            var framebufferResolve = gl.createFramebuffer();
+                            // var framebufferRender = gl.createFramebuffer();
+                            // var framebufferResolve = gl.createFramebuffer();
 
-                            var colorRenderbuffer = gl.createRenderbuffer();
-                            gl.bindRenderbuffer(gl.RENDERBUFFER, colorRenderbuffer);
-                            gl.renderbufferStorage(gl.RENDERBUFFER, gl.RGBA4, FRAMEBUFFER_SIZE.x, FRAMEBUFFER_SIZE.y);
+                            // var colorRenderbuffer = gl.createRenderbuffer();
+                            // gl.bindRenderbuffer(gl.RENDERBUFFER, colorRenderbuffer);
+                            // gl.renderbufferStorage(gl.RENDERBUFFER, gl.RGBA4, FRAMEBUFFER_SIZE.x, FRAMEBUFFER_SIZE.y);
 
-                            gl.bindFramebuffer(gl.FRAMEBUFFER, framebufferRender);
-                            gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.RENDERBUFFER, colorRenderbuffer);
-                            gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+                            // gl.bindFramebuffer(gl.FRAMEBUFFER, framebufferRender);
+                            // gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.RENDERBUFFER, colorRenderbuffer);
+                            // gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
-                            gl.bindFramebuffer(gl.FRAMEBUFFER,  framebufferResolve);
+                            gl.bindFramebuffer(gl.FRAMEBUFFER,  session.renderState.baseLayer.framebuffer);
                             gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, textureColorBuffer, 0);
                             gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
@@ -251,9 +251,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                             gl.useProgram(program);
                             gl.uniform1i(diffuseLocation, 0);
 
-                            gl.bindFramebuffer(gl.FRAMEBUFFER, framebufferRender);
-                            gl.viewport(0, 0, FRAMEBUFFER_SIZE.x, FRAMEBUFFER_SIZE.y);
-                            gl.clearBufferfv(gl.COLOR, 0, [0.3, 0.3, 0.3, 1.0]);
+                            // gl.bindFramebuffer(gl.FRAMEBUFFER, framebufferRender);
+                            // gl.viewport(0, 0, FRAMEBUFFER_SIZE.x, FRAMEBUFFER_SIZE.y);
+                            // gl.clearBufferfv(gl.COLOR, 0, [0.3, 0.3, 0.3, 1.0]);
 
 
                              // Render FBO
@@ -271,32 +271,32 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                             gl.bindTexture(gl.TEXTURE_2D, null);
 
                             // Blit framebuffers
-                            gl.bindFramebuffer(gl.READ_FRAMEBUFFER, framebufferRender);
-                            gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER,  framebufferResolve);
-                            gl.clearBufferfv(gl.COLOR, 0, [0.7, 0.0, 0.0, 1.0]);
+                            // gl.bindFramebuffer(gl.READ_FRAMEBUFFER, framebufferRender);
+                            // gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER,  framebufferResolve);
+                            // gl.clearBufferfv(gl.COLOR, 0, [0.7, 0.0, 0.0, 1.0]);
 
-                            var TILE = 4;
-                            var BORDER = 2;
-                            for(var j = 0; j < TILE; j++) {
-                                for(var i = 0; i < TILE; i++) {
-                                    if((i + j) % 2) {
-                                        continue;
-                                    }
+                            // var TILE = 4;
+                            // var BORDER = 2;
+                            // for(var j = 0; j < TILE; j++) {
+                            //     for(var i = 0; i < TILE; i++) {
+                            //         if((i + j) % 2) {
+                            //             continue;
+                            //         }
 
-                                    gl.blitFramebuffer(
-                                        0, 0, FRAMEBUFFER_SIZE.x, FRAMEBUFFER_SIZE.y,
-                                        FRAMEBUFFER_SIZE.x / TILE * (i + 0) + BORDER,
-                                        FRAMEBUFFER_SIZE.x / TILE * (j + 0) + BORDER,
-                                        FRAMEBUFFER_SIZE.y / TILE * (i + 1) - BORDER,
-                                        FRAMEBUFFER_SIZE.y / TILE * (j + 1) - BORDER,
-                                        gl.COLOR_BUFFER_BIT, gl.LINEAR
-                                    );
-                                }
-                            }
+                            //         gl.blitFramebuffer(
+                            //             0, 0, FRAMEBUFFER_SIZE.x, FRAMEBUFFER_SIZE.y,
+                            //             FRAMEBUFFER_SIZE.x / TILE * (i + 0) + BORDER,
+                            //             FRAMEBUFFER_SIZE.x / TILE * (j + 0) + BORDER,
+                            //             FRAMEBUFFER_SIZE.y / TILE * (i + 1) - BORDER,
+                            //             FRAMEBUFFER_SIZE.y / TILE * (j + 1) - BORDER,
+                            //             gl.COLOR_BUFFER_BIT, gl.LINEAR
+                            //         );
+                            //     }
+                            // }
                             
 
-                            // Pass 2
-                            gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer);
+                            // // Pass 2
+                            gl.bindFramebuffer(gl.FRAMEBUFFER, null);
                             gl.viewport(0, 0, canvas.width, canvas.height);
                             gl.clearBufferfv(gl.COLOR, 0, [0.0, 0.0, 0.0, 1.0]);
 
@@ -314,9 +314,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                             gl.drawArrays(gl.TRIANGLES, 0, 6);
 
                             // Delete WebGL resources
-                            gl.deleteFramebuffer(framebufferRender);
-                            gl.deleteFramebuffer(framebufferResolve);
-                            gl.deleteRenderbuffer(colorRenderbuffer);
+                            // gl.deleteFramebuffer(framebufferRender);
+                            // gl.deleteFramebuffer(framebufferResolve);
+                            // gl.deleteRenderbuffer(colorRenderbuffer);
                             gl.deleteBuffer(vertexPosBuffer);
                             gl.deleteBuffer(vertexTexBuffer);
                             gl.deleteTexture(textureDiffuse);
