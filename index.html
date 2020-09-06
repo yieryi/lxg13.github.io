@@ -98,7 +98,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             let xrRefSpace = null;
             var container = document.getElementById('cesiumContainer');
             let canvas = document.createElement('canvas');
-            let gl = canvas.getContext('webgl', {
+            let gl = canvas.getContext('webgl2', {
               xrCompatible: true
             });
 
