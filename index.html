@@ -150,7 +150,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                       let pose = frame.getViewerPose(xrRefSpace);
                       // if(pose){
                         gl.bindFramebuffer(gl.FRAMEBUFFER,  session.renderState.baseLayer.framebuffer);
-                        gl.viewport(0, 0, 1440, 1008);
+                        gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
                       // gl.clearBufferfv(gl.COLOR, 0, [0.3, 0.3, 0.3, 1.0]);
 
 
