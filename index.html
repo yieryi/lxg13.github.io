@@ -233,7 +233,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                             gl.bindTexture(gl.TEXTURE_2D, null);
 
                             var framebufferRender = gl.createFramebuffer();
-                            var framebufferResolve = gl.createFramebuffer();
+                            // var framebufferResolve = gl.createFramebuffer();
 
                             var colorRenderbuffer = gl.createRenderbuffer();
                             gl.bindRenderbuffer(gl.RENDERBUFFER, colorRenderbuffer);
@@ -243,7 +243,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                             gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.RENDERBUFFER, colorRenderbuffer);
                             gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
-                            gl.bindFramebuffer(gl.FRAMEBUFFER, framebufferResolve);
+                            gl.bindFramebuffer(gl.FRAMEBUFFER,  session.renderState.baseLayer.framebuffer);
                             gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, textureColorBuffer, 0);
                             gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
@@ -272,7 +272,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
                             // Blit framebuffers
                             gl.bindFramebuffer(gl.READ_FRAMEBUFFER, framebufferRender);
-                            gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, framebufferResolve);
+                            gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER,  session.renderState.baseLayer.framebuffer);
                             gl.clearBufferfv(gl.COLOR, 0, [0.7, 0.0, 0.0, 1.0]);
 
                             var TILE = 4;
@@ -314,7 +314,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
                             // Delete WebGL resources
                             gl.deleteFramebuffer(framebufferRender);
-                            gl.deleteFramebuffer(framebufferResolve);
+                            // gl.deleteFramebuffer(framebufferResolve);
                             gl.deleteRenderbuffer(colorRenderbuffer);
                             gl.deleteBuffer(vertexPosBuffer);
                             gl.deleteBuffer(vertexTexBuffer);
