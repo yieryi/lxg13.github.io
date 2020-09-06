@@ -113,31 +113,31 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 xrSession.updateRenderState({ baseLayer: new XRWebGLLayer(xrSession, gl) });
                 xrSession.requestReferenceSpace('local').then((refSpace) => {
                     xrRefSpace = refSpace;
-                    xrSession.requestAnimationFrame(onXRFrame);
+                    // session.requestAnimationFrame(onXRFrame);
                     
-                    function onXRFrame(t, frame) {
-                        let session = frame.session;
-                        session.requestAnimationFrame(onXRFrame);
-                        let pose = frame.getViewerPose(xrRefSpace);
+    //   function onXRFrame(t, frame) {
+    //     let session = frame.session;
+    //     session.requestAnimationFrame(onXRFrame);
+    //     let pose = frame.getViewerPose(xrRefSpace);
 
-                        if (pose) {
-                        gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer);
+    //     if (pose) {
+    //       gl.bindFramebuffer(gl.FRAMEBUFFER, session.renderState.baseLayer.framebuffer);
 
-                        // Update the clear color so that we can observe the color in the
-                        // headset changing over time. Use a scissor rectangle to keep the AR
-                        // scene visible.
-                        const width = session.renderState.baseLayer.framebufferWidth;
-                        const height = session.renderState.baseLayer.framebufferHeight;
-                        gl.enable(gl.SCISSOR_TEST);
-                        gl.scissor(width / 4, height / 4, width / 2, height / 2);
-                        let time = Date.now();
-                        gl.clearColor(Math.cos(time / 2000), Math.cos(time / 4000), Math.cos(time / 6000), 0.5);
-                        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-                        }
-                    }
-                    // let bos = new BOSGeo.GeoMap(container,canvas, gl, element,{
-                    //     session : xrSession
-                    // });
+    //       // Update the clear color so that we can observe the color in the
+    //       // headset changing over time. Use a scissor rectangle to keep the AR
+    //       // scene visible.
+    //       const width = session.renderState.baseLayer.framebufferWidth;
+    //       const height = session.renderState.baseLayer.framebufferHeight;
+    //       gl.enable(gl.SCISSOR_TEST);
+    //       gl.scissor(width / 4, height / 4, width / 2, height / 2);
+    //       let time = Date.now();
+    //       gl.clearColor(Math.cos(time / 2000), Math.cos(time / 4000), Math.cos(time / 6000), 0.5);
+    //       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    //     }
+    //   }
+                    let bos = new BOSGeo.GeoMap(container,canvas, gl, element,{
+                        session : xrSession
+                    });
                 
                 });
             })
