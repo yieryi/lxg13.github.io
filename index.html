@@ -241,18 +241,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                             gl.COLOR_ATTACHMENT0
                         ]);
 
-                        gl.bindFramebuffer(gl.READ_FRAMEBUFFER, frameBuffer);
-                        gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, session.renderState.baseLayer.framebuffer);
-                        gl.clearBufferfv(gl.COLOR, 0, [0.0, 0.0, 0.0, 0.0]);
+                        // gl.bindFramebuffer(gl.READ_FRAMEBUFFER, frameBuffer);
+                        // gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, session.renderState.baseLayer.framebuffer);
+                        // gl.clearBufferfv(gl.COLOR, 0, [0.0, 0.0, 0.0, 0.0]);
 
-                        gl.blitFramebuffer(
-                            0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight,
-                            0,
-                            0,
-                            gl.drawingBufferWidth/2,
-                            gl.drawingBufferHeight/2,
-                            gl.COLOR_BUFFER_BIT, gl.LINEAR
-                        );
+                        // gl.blitFramebuffer(
+                        //     0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight,
+                        //     0,
+                        //     0,
+                        //     gl.drawingBufferWidth/2,
+                        //     gl.drawingBufferHeight/2,
+                        //     gl.COLOR_BUFFER_BIT, gl.LINEAR
+                        // );
 
 
                         //render to AR
