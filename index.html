@@ -155,8 +155,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                       let pose = frame.getViewerPose(xrRefSpace);
                       // if(pose){
      
-                      gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+                      // gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
                       gl.bindFramebuffer(gl.FRAMEBUFFER,  session.renderState.baseLayer.framebuffer);
+
+                      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
                       // gl.clearBufferfv(gl.COLOR, 0, [0.0, 0.0, 0.0, 0.0]);
 
                       var program = createProgram(gl, getShaderSource('vs'), getShaderSource('fs'));
