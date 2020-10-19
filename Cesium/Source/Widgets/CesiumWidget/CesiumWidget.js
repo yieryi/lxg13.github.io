@@ -806,7 +806,10 @@ CesiumWidget.prototype.render = function () {
     tmpCameraUp.y = cam.up.y;
     tmpCameraUp.z = cam.up.z;
     this.activeCamera.upVector = tmpCameraUp;
-    this.xr.input.xrCamera.setTransformationFromNonVRCamera(this.activeCamera);
+
+    if(this.xr && this.xr.input) {
+      this.xr.input.xrCamera.setTransformationFromNonVRCamera(this.activeCamera);
+    }
 
     this._scene.initializeFrame();
     var currentTime = this._clock.tick();
