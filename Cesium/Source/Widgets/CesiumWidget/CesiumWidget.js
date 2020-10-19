@@ -797,15 +797,17 @@ let tmpCameraUp = new BABYLON.Vector3(0, 0, 0);
  */
 CesiumWidget.prototype.render = function () {
   if (this._canRender) {
-    // let cam = this.scene.camera;
-    // tmpCameraPos.x = cam.position.x;
-    // tmpCameraPos.y = cam.position.y;
-    // tmpCameraPos.z = cam.position.z;
-    // this.activeCamera.setPosition(tmpCameraPos);
-    // tmpCameraUp.x = cam.up.x;
-    // tmpCameraUp.y = cam.up.y;
-    // tmpCameraUp.z = cam.up.z;
-    // this.activeCamera.upVector = tmpCameraUp;
+    let cam = this.scene.camera;
+    tmpCameraPos.x = cam.position.x;
+    tmpCameraPos.y = cam.position.y;
+    tmpCameraPos.z = cam.position.z;
+    this.activeCamera.setPosition(tmpCameraPos);
+    tmpCameraUp.x = cam.up.x;
+    tmpCameraUp.y = cam.up.y;
+    tmpCameraUp.z = cam.up.z;
+    this.activeCamera.upVector = tmpCameraUp;
+    this.xr.input.xrCamera.setTransformationFromNonVRCamera(this.activeCamera);
+
     this._scene.initializeFrame();
     var currentTime = this._clock.tick();
     this._scene.render(currentTime);
@@ -836,7 +838,7 @@ async function createBabylonScene(widget) {
   widget.activeCamera.fov = CesiumMath.toRadians(60);
   widget.activeCamera.minZ = 0.1;
   widget.activeCamera.maxZ = 10000000000.0;
-  widget.activeCamera.position = new BABYLON.Vector3( 3491707.191998418, -26522149.26405398, 18821330.30443552);
+  // widget.activeCamera.position = new BABYLON.Vector3( 3491707.191998418, -26522149.26405398, 18821330.30443552);
   // widget._babylonScene.activeCamera = widget.activeCamera;
 
   var lightup = new BABYLON.HemisphericLight(
@@ -860,13 +862,13 @@ async function createBabylonScene(widget) {
   pipeline.samples = 4;
   pipeline.fxaaEnabled = true;
 
-  const xr = await widget._babylonScene.createDefaultXRExperienceAsync({
+  widget.xr = await widget._babylonScene.createDefaultXRExperienceAsync({
     uiOptions: {
       sessionMode: 'immersive-ar'
     }
   });
-  xr.input.xrCamera.maxZ = 10000000000;
-  xr.input.xrCamera.setTransformationFromNonVRCamera(widget.activeCamera);
+  widget.xr.input.xrCamera.maxZ = 10000000000;
+  widget.xr.input.xrCamera.setTransformationFromNonVRCamera(widget.activeCamera);
 
 }
 
