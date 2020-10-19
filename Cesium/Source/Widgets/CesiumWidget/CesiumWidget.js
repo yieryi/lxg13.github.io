@@ -21,6 +21,7 @@ import SkyBox from "../../Scene/SkyBox.js";
 import Sun from "../../Scene/Sun.js";
 import getElement from "../getElement.js";
 import CesiumMath from "../../Core/Math.js";
+import Matrix4 from "../../Core/Matrix4.js";
 
 function getDefaultSkyBoxUrl(suffix) {
   return buildModuleUrl(
@@ -798,20 +799,21 @@ let tmpCameraUp = new BABYLON.Vector3(0, 0, 0);
 CesiumWidget.prototype.render = function () {
   if (this._canRender) {
     let cam = this.scene.camera;
-    tmpCameraPos.x = cam.position.x;
-    tmpCameraPos.y = cam.position.y;
-    tmpCameraPos.z = cam.position.z;
-    this.activeCamera.setPosition(tmpCameraPos);
-    tmpCameraUp.x = cam.up.x;
-    tmpCameraUp.y = cam.up.y;
-    tmpCameraUp.z = cam.up.z;
-    this.activeCamera.upVector = tmpCameraUp;
+    // tmpCameraPos.x = cam.position.x;
+    // tmpCameraPos.y = cam.position.y;
+    // tmpCameraPos.z = cam.position.z;
+    // this.activeCamera.setPosition(tmpCameraPos);
+    // tmpCameraUp.x = cam.up.x;
+    // tmpCameraUp.y = cam.up.y;
+    // tmpCameraUp.z = cam.up.z;
+    // this.activeCamera.upVector = tmpCameraUp;
 
-    this.activeCamera._viewMatrix = cam.viewMatrix.toBabylonMatrix();
-    this.activeCamera._projectionMatrix = cam.frustum.projectionMatrix.toBabylonMatrix();
-    if(this.xr && this.xr.input) {
-      this.xr.input.xrCamera.setTransformationFromNonVRCamera(this.activeCamera);
-    }
+    // this.activeCamera._viewMatrix = cam.viewMatrix.toBabylonMatrix();
+    // // this.activeCamera._projectionMatrix = cam.frustum.projectionMatrix.toBabylonMatrix();
+    // if(this.xr && this.xr.input) {
+    //   console.log(this.activeCamera.computeWorldMatrix())
+    //   this.xr.input.xrCamera.setTransformationFromNonVRCamera(this.activeCamera);
+    // }
 
     this._scene.initializeFrame();
     var currentTime = this._clock.tick();
@@ -843,7 +845,7 @@ async function createBabylonScene(widget) {
   widget.activeCamera.fov = CesiumMath.toRadians(60);
   widget.activeCamera.minZ = 0.1;
   widget.activeCamera.maxZ = 10000000000.0;
-  // widget.activeCamera.position = new BABYLON.Vector3( 3491707.191998418, -26522149.26405398, 18821330.30443552);
+  widget.activeCamera.position = new BABYLON.Vector3( 3491707.191998418, -26522149.26405398, 18821330.30443552);
   // widget._babylonScene.activeCamera = widget.activeCamera;
 
   var lightup = new BABYLON.HemisphericLight(
@@ -873,6 +875,23 @@ async function createBabylonScene(widget) {
     }
   });
   widget.xr.input.xrCamera.maxZ = 10000000000;
+  let mat = new Matrix4(-0.9832232594490051,
+  4.976009826407335e-9,
+  0.1824062168598175,
+ -0,
+  0.14790576696395874,
+  0.5852412581443787,
+   0.7972556352615356,
+   0,
+   -0.10675164312124252,
+  0.810859203338623,
+  -0.5754228234291077,
+   0,
+   3491707.25,
+   -26522150,
+   18821332,
+  1);
+  widget.activeCamera._viewMatrix = mat.toBabylonMatrix();
   widget.xr.input.xrCamera.setTransformationFromNonVRCamera(widget.activeCamera);
 
 }
