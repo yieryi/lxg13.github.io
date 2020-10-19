@@ -782,7 +782,7 @@ CesiumWidget.prototype.resize = function () {
     return;
   }
   this._forceResize = false;
-
+  //FIXME
   // configureCanvasSize(this);
   configureCameraFrustum(this);
 
@@ -810,7 +810,6 @@ CesiumWidget.prototype.render = function () {
     this.activeCamera._viewMatrix = cam.viewMatrix.toBabylonMatrix();
     this.activeCamera._projectionMatrix = cam.frustum.projectionMatrix.toBabylonMatrix();
     if(this.xr && this.xr.input) {
-      console.log('change')
       this.xr.input.xrCamera.setTransformationFromNonVRCamera(this.activeCamera);
     }
 
@@ -874,7 +873,7 @@ async function createBabylonScene(widget) {
     }
   });
   widget.xr.input.xrCamera.maxZ = 10000000000;
-  // widget.xr.input.xrCamera.setTransformationFromNonVRCamera(widget.activeCamera);
+  widget.xr.input.xrCamera.setTransformationFromNonVRCamera(widget.activeCamera);
 
 }
 

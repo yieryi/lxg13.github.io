@@ -19,8 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95d88fb9-5c7e-49c2-b054-67d09398253c" name="Default Changelist" comment="   aasada">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="95d88fb9-5c7e-49c2-b054-67d09398253c" name="Default Changelist" comment="aasada">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +50,7 @@
       <option name="presentableId" value="Default" />
       <updated>1603071814023</updated>
       <workItem from="1603071815090" duration="809000" />
-      <workItem from="1603078153816" duration="2541000" />
+      <workItem from="1603078153816" duration="3751000" />
     </task>
     <task id="LOCAL-00001" summary="   aasada">
       <created>1603071926716</created>
@@ -101,7 +101,21 @@
       <option name="project" value="LOCAL" />
       <updated>1603080352105</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="   aasada">
+      <created>1603081120287</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1603081120287</updated>
+    </task>
+    <task id="LOCAL-00009" summary="aasada">
+      <created>1603081224145</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1603081224145</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,12 +135,25 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="   aasada" />
-    <option name="LAST_COMMIT_MESSAGE" value="   aasada" />
+    <MESSAGE value="aasada" />
+    <option name="LAST_COMMIT_MESSAGE" value="aasada" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="180" key="Vcs.Push.Dialog.v2" timestamp="1603080396618">
+    <state x="147" y="96" key="MergeDialog" timestamp="1603081139109">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state x="361" y="180" key="Vcs.Push.Dialog.v2/0.30.1536.834/1920.0.1920.1080/0.1080.1920.550@0.30.1536.834" timestamp="1603080396618" />
+    <state x="147" y="96" key="MergeDialog/0.30.1536.834/1920.0.1920.1080/0.1080.1920.550@0.30.1536.834" timestamp="1603081139109" />
+    <state x="403" y="208" key="MultipleFileMergeDialog" timestamp="1603081139118">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="403" y="208" key="MultipleFileMergeDialog/0.30.1536.834/1920.0.1920.1080/0.1080.1920.550@0.30.1536.834" timestamp="1603081139118" />
+    <state x="361" y="180" key="Vcs.Push.Dialog.v2" timestamp="1603081594558">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="361" y="180" key="Vcs.Push.Dialog.v2/0.30.1536.834/1920.0.1920.1080/0.1080.1920.550@0.30.1536.834" timestamp="1603081594558" />
+    <state x="604" y="181" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1603081199004">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="604" y="181" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/0.30.1536.834/1920.0.1920.1080/0.1080.1920.550@0.30.1536.834" timestamp="1603081199004" />
   </component>
 </project>
