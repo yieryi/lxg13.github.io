@@ -781,12 +781,12 @@ CesiumWidget.prototype.resize = function () {
   ) {
     return;
   }
-  // this._forceResize = false;
-  //
+  this._forceResize = false;
+
   // configureCanvasSize(this);
-  // configureCameraFrustum(this);
-  //
-  // this._scene.requestRender();
+  configureCameraFrustum(this);
+
+  this._scene.requestRender();
 };
 
 let tmpCameraPos = new BABYLON.Vector3(0, 0, 0);
@@ -798,14 +798,14 @@ let tmpCameraUp = new BABYLON.Vector3(0, 0, 0);
 CesiumWidget.prototype.render = function () {
   if (this._canRender) {
     let cam = this.scene.camera;
-    // tmpCameraPos.x = cam.position.x;
-    // tmpCameraPos.y = cam.position.y;
-    // tmpCameraPos.z = cam.position.z;
-    // this._babylonScene.activeCamera.setPosition(tmpCameraPos);
-    // tmpCameraUp.x = cam.up.x;
-    // tmpCameraUp.y = cam.up.y;
-    // tmpCameraUp.z = cam.up.z;
-    // this._babylonScene.upVector = tmpCameraUp;
+    tmpCameraPos.x = cam.position.x;
+    tmpCameraPos.y = cam.position.y;
+    tmpCameraPos.z = cam.position.z;
+    this.activeCamera.setPosition(tmpCameraPos);
+    tmpCameraUp.x = cam.up.x;
+    tmpCameraUp.y = cam.up.y;
+    tmpCameraUp.z = cam.up.z;
+    this.activeCamera.upVector = tmpCameraUp;
     this._scene.initializeFrame();
     var currentTime = this._clock.tick();
     this._scene.render(currentTime);
@@ -832,7 +832,7 @@ async function createBabylonScene(widget) {
     BABYLON.Vector3.Zero(),
     widget._babylonScene
   );
-  widget.activeCamera.attachControl(widget.canvas, true);
+  // widget.activeCamera.attachControl(widget.canvas, true);
   widget.activeCamera.fov = CesiumMath.toRadians(60);
   widget.activeCamera.minZ = 0.1;
   widget.activeCamera.maxZ = 10000000000.0;
@@ -865,6 +865,8 @@ async function createBabylonScene(widget) {
       sessionMode: 'immersive-ar'
     }
   });
+  xr.input.xrCamera.maxZ = 10000000000;
+  xr.input.xrCamera.setTransformationFromNonVRCamera(widget.activeCamera);
 
 }
 
